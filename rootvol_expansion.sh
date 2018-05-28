@@ -3,10 +3,10 @@
 #This script is created to extend the rootlv automatically if it exceeds threshold value set below
 
 #Threshold value of root filesystem set to 80%, change it if required.
-threshold_value="80"
+threshold_value="50"
 
 #Bydefault, defined 20% to be extended. Change it if required.
-extend_value="20"
+extend_value="1"
 
 #Finding usage of root volume
 usage=`df -h / | grep / | awk '{print $5}' | cut -f1 -d %`
@@ -19,7 +19,7 @@ vgname=`df -h / | grep / | awk '{print $1}' | cut -f4 -d / | cut -f1 -d "-"`
 
 #Calculating the total size
 totalsize=`df -h / | grep / | awk '{print $2}' | cut -f1 -d G`
-totalsize_mb=$(($totalsize * 1024))
+totalsize_mb=`echo "($totalsize * 1024)" | bc`
 
 #finding rootvg free space
 vgfreespace=`vgs | grep $vgname | awk '{print $7}' | cut -f1 -d .`

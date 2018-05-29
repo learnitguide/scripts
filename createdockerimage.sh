@@ -12,3 +12,4 @@ RUN apt-get update && apt-get -y upgrade python
 EOF
 
 docker build -t mypython:latest . > $logfile
+echo "Logs of docker image creations are stored in the file : $logfile"

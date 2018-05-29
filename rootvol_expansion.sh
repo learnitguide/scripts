@@ -6,7 +6,7 @@
 threshold_value="50"
 
 #Bydefault, defined 20% to be extended. Change it if required.
-extend_value="1"
+extend_value="20"
 
 #Finding usage of root volume
 usage=`df -h / | grep / | awk '{print $5}' | cut -f1 -d %`

@@ -3,7 +3,7 @@
 #This script is created to extend the rootlv automatically if it exceeds threshold value set below
 
 #Threshold value of root filesystem set to 80%, change it if required.
-threshold_value="50"
+threshold_value="80"
 
 #Bydefault, defined 20% to be extended. Change it if required.
 extend_value="20"

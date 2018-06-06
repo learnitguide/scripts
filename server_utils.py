@@ -7,7 +7,7 @@ import subprocess
 
 # Threshold values
 cpu_threshold = 60
-mem_threshold = 20
+mem_threshold = 80
 
 #Process information storing logs as json format.
 cpu_file_output = "high_cpu_usage.json"

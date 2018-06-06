@@ -35,8 +35,6 @@ print("----------------------")
 print("CPU Utilization: ",cpu_op,end='\n\n')
 print("Load Average: ",load_op,end='\n\n')
 print ("Memory Utilization: ",mem_op,end='\n\n')
-print("Load Average: ",load_op,end='\n\n')
-print ("Memory Utilization: ",mem_op,end='\n\n')
 print("--------------------------------------------------------------------------------------------------",end="\n\n")
 
 # Finding the percentage of CPU system usage value

@@ -6,8 +6,8 @@ from __future__ import print_function
 import subprocess
 
 # Threshold values
-cpu_threshold = 20
-mem_threshold = 20
+cpu_threshold = 60
+mem_threshold = 80
 
 ### Finding CPU Utilization ###
 
@@ -52,7 +52,7 @@ if cpu_sys_usage < cpu_threshold:
 else:
  print("CPU Utilization - WARNING",end="\n\n")
  print("Listed top 15 process consuming more CPU's:",end="\n\n")
- process_list = "ps -eo pcpu,pid,user,comm | sort -k 1 -r | head -15"
+ process_list = "ps -eo pcpu,pid,user,comm | sort -k 1 -r | head -16"
  ls_proc = subprocess.check_output(process_list,shell=True).strip()
  print(ls_proc,end="\n\n")
 
@@ -90,6 +90,6 @@ if mem_sy_op < mem_threshold:
 else:
  print("Memory Utilization - WARNING",end="\n\n")
  print("Listed top 15 process consuming more Memory's:",end="\n\n")
- mem_list = "ps -eo pmem,pid,user,comm | sort -k 1 -r | head -15"
+ mem_list = "ps -eo pmem,pid,user,comm | sort -k 1 -r | head -16"
  ls_mem = subprocess.check_output(mem_list,shell=True).strip()
  print(ls_mem,end="\n\n")

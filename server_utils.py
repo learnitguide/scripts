@@ -7,7 +7,11 @@ import subprocess
 
 # Threshold values
 cpu_threshold = 60
-mem_threshold = 80
+mem_threshold = 20
+
+#Process information storing logs as json format.
+cpu_file_output = "high_cpu_usage.json"
+mem_file_output = "high_memory_usage.json"
 
 ### Finding CPU Utilization ###
 
@@ -50,11 +54,12 @@ if cpu_sys_usage < cpu_threshold:
  print("CPU Utilization - OK",end="\n\n")
 
 else:
- print("CPU Utilization - WARNING",end="\n\n")
- print("Listed top 15 process consuming more CPU's:",end="\n\n")
- process_list = "ps -eo pcpu,pid,user,comm | sort -k 1 -r | head -16"
+ print("CPU Utilization - WARNING",end="\n")
+ print("(Top 15 High CPU Utilizing Process are written in file -",cpu_file_output,")",end="\n\n")
+ process_list = """ps -eo pcpu,pid,user,comm | sort -k 1 -r | grep -v "%CPU" | head -15 | python -c 'import json, fileinput; print json.dumps({"Highly_CPU_consumption_process":[dict(zip(("Percentage", "Parent Process ID", "Owner", "Command"), l.split())) for l in fileinput.input()]}, indent=2)'"""
  ls_proc = subprocess.check_output(process_list,shell=True).strip()
- print(ls_proc,end="\n\n")
+ outfile = open(cpu_file_output,'w')
+ print (ls_proc, file=outfile )
 
 
 #Checking Load Average is normal or overloaded.
@@ -64,7 +69,6 @@ cpu_load_avg_op = subprocess.check_output(cpu_load_avg,shell=True).strip()
 
 no_cpus = "nproc"
 no_cpus_op = subprocess.check_output(no_cpus,shell=True).strip()
-
 cpu_load_avg_op = float(cpu_load_avg_op)
 no_cpus_op = float(no_cpus_op)
 
@@ -88,8 +92,9 @@ if mem_sy_op < mem_threshold:
  print("Memory Utilization - OK",end="\n\n")
 
 else:
- print("Memory Utilization - WARNING",end="\n\n")
- print("Listed top 15 process consuming more Memory's:",end="\n\n")
- mem_list = "ps -eo pmem,pid,user,comm | sort -k 1 -r | head -16"
+ print("Memory Utilization - WARNING",end="\n")
+ print("(Top 15 High Memory Utilizing Process are written in file -",mem_file_output,")",end="\n\n")
+ mem_list = """ps -eo pmem,pid,user,comm | sort -k 1 -r | grep -v "%MEM" | head -15 | python -c 'import json, fileinput; print json.dumps({"Highly_Memory_consumption_process":[dict(zip(("Percentage", "Parent Process ID", "Owner", "Command"), l.split())) for l in fileinput.input()]}, indent=2)'"""
  ls_mem = subprocess.check_output(mem_list,shell=True).strip()
- print(ls_mem,end="\n\n")
+ outfile = open(mem_file_output,'w')
+ print (ls_mem, file=outfile )

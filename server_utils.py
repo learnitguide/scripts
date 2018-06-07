@@ -1,5 +1,6 @@
 #!/usr/bin/python
 #This script is created to report the CPU Utilization, CPU Load Average and Memory Utilization with threshold value set to ensure the resources are not utilized upto the critical / warning level.
+#Also it generates the Top 15 High CPU and Memory Consuming process in json format.
 #Created : Selvakumar Viswanathan
 
 from __future__ import print_function
@@ -55,7 +56,7 @@ if cpu_sys_usage < cpu_threshold:
 
 else:
  print("CPU Utilization - WARNING",end="\n")
- print("(Top 15 High CPU Utilizing Process are written in file -",cpu_file_output,")",end="\n\n")
+ print("(Top 15 High CPU Consuming Process are written in file -",cpu_file_output,")",end="\n\n")
  process_list = """ps -eo pcpu,pid,user,comm | sort -k 1 -r | grep -v "%CPU" | head -15 | python -c 'import json, fileinput; print json.dumps({"Highly_CPU_consumption_process":[dict(zip(("Percentage", "Parent Process ID", "Owner", "Command"), l.split())) for l in fileinput.input()]}, indent=2)'"""
  ls_proc = subprocess.check_output(process_list,shell=True).strip()
  outfile = open(cpu_file_output,'w')
@@ -93,7 +94,7 @@ if mem_sy_op < mem_threshold:
 
 else:
  print("Memory Utilization - WARNING",end="\n")
- print("(Top 15 High Memory Utilizing Process are written in file -",mem_file_output,")",end="\n\n")
+ print("(Top 15 High Memory Consuming Process are written in file -",mem_file_output,")",end="\n\n")
  mem_list = """ps -eo pmem,pid,user,comm | sort -k 1 -r | grep -v "%MEM" | head -15 | python -c 'import json, fileinput; print json.dumps({"Highly_Memory_consumption_process":[dict(zip(("Percentage", "Parent Process ID", "Owner", "Command"), l.split())) for l in fileinput.input()]}, indent=2)'"""
  ls_mem = subprocess.check_output(mem_list,shell=True).strip()
  outfile = open(mem_file_output,'w')

@@ -6,7 +6,7 @@
 #Process name created by the application start script.
 process_name="app.py"
 
-status_log="logs"
+status_log="/root/devops-challenge/logs"
 
 #Checking the process running or not.
 command=`ps -ef | grep -i $process_name | grep -v grep`

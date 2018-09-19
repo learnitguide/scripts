@@ -6,7 +6,7 @@
 #Process name created by the application start script.
 process_name="app.py"
 
-status_log="/root/devops-challenge/logs"
+status_log="/webapps/devops/app_status_logs"
 
 #Checking the process running or not.
 command=`ps -ef | grep -i $process_name | grep -v grep`
@@ -16,7 +16,7 @@ then
     echo  -e "`date` - Application $process_name is running" >> $status_log
 else
 
-    python /root/devops-challenge/app.py & > /dev/null
+    python /webapps/devops/app.py & > /dev/null
 
     if [ $? -eq 0 ]
     then

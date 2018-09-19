@@ -13,13 +13,13 @@ command=`ps -ef | grep -i $process_name | grep -v grep`
 
 if [ $? -eq 0 ]
 then
-    echo  -e "`date` - Application $process_name is running" >> $status_log
+    echo  "`date` - Application $process_name is running" >> $status_log
 else
 
     python /webapps/devops/app.py & > /dev/null
 
     if [ $? -eq 0 ]
     then
-        echo -e "`date` - Application $process_name is not running, hence started now" >> $status_log
+        echo "`date` - Application $process_name is not running, hence started now" >> $status_log
     fi
 fi
